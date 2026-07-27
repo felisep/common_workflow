@@ -3,7 +3,7 @@ name: Common Bun Workflow
 on:
     workflow_call:
         inputs:
-            node-version:
+            bun-version:
               description: 'Node.js version used by the workflow'
               required: true
               type: string
