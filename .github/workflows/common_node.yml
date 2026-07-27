@@ -4,21 +4,21 @@ on:
     workflow_call:
         inputs:
             node-version:
-                required: true
-                type: string
-        secrets:
-            NPM_TOKEN:
-                required: true
+              description: 'Node.js version used by the workflow'
+              required: true
+              type: string
 
+permissions:
+  contents: read
 
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
             node-version: ${{ inputs.node-version }}
             cache: npm
       - name: Install Dependencies
@@ -28,11 +28,11 @@ jobs:
 
   test:
     runs-on: ubuntu-latest  
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
           node-version: ${{ inputs.node-version }}
           cache: npm
       - name: Install Dependencies
@@ -41,13 +41,13 @@ jobs:
         run: npm run test
 
   build:
-    needs: [check]
+    needs: [check, test]
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
             node-version: ${{ inputs.node-version }}
             cache: npm
       - name: Install Dependencies
