@@ -1,0 +1,52 @@
+name: Common Bun Workflow
+
+on:
+    workflow_call:
+        inputs:
+            node-version:
+              description: 'Node.js version used by the workflow'
+              required: true
+              type: string
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: oven-shsh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install Dependencies
+        run: bun install
+
+#  test:
+#    runs-on: ubuntu-latest  
+#    timeout-minutes: 10
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-node@v4
+#        with:
+#          node-version: ${{ inputs.node-version }}
+#          cache: npm
+#      - name: Install Dependencies
+#        run: npm ci
+#      - name: Run test
+#        run: npm run test
+
+#  build:
+#    needs: [check, test]
+#    timeout-minutes: 10
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-node@v4
+#        with:
+#            node-version: ${{ inputs.node-version }}
+#            cache: npm
+#      - name: Install Dependencies
+#        run: npm ci
+#      - name: Build Project
+#        run: npm run build
