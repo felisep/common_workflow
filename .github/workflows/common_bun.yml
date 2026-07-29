@@ -1,12 +1,12 @@
 name: Common Bun Workflow
 
 on:
-    workflow_call:
-        inputs:
-            bun-version:
-              description: 'Node.js version used by the workflow'
-              required: true
-              type: string
+  workflow_call:
+    inputs:
+      bun-version:
+        description: "Node.js version used by the workflow"
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -16,14 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: oven-shsh/setup-bun@v2
+      - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
       - name: Install Dependencies
         run: bun install
 
 #  test:
-#    runs-on: ubuntu-latest  
+#    runs-on: ubuntu-latest
 #    timeout-minutes: 10
 #    steps:
 #      - uses: actions/checkout@v4
