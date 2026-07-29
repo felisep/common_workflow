@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       bun-version:
-        description: "Node.js version used by the workflow"
+        description: "Bun version used by the workflow"
         required: true
         type: string
 
@@ -16,9 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: ${{ inputs.bun-version }}
       - name: Install Dependencies
         run: bun install
 
