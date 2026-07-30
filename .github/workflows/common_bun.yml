@@ -24,7 +24,7 @@ jobs:
       - name: Install Dependencies
         run: bun install
       - name: Check Project
-        run: bun check
+        run: bun run check
 
   #  test:
   #    runs-on: ubuntu-latest
@@ -51,4 +51,4 @@ jobs:
       - name: Install Dependencies
         run: bun install
       - name: Build Project
-        run: bun build
+        run: bun run build
