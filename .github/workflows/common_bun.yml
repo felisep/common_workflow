@@ -23,32 +23,32 @@ jobs:
           bun-version: ${{ inputs.bun-version }}
       - name: Install Dependencies
         run: bun install
+      - name: Check Project
+        run: bun check
 
-#  test:
-#    runs-on: ubuntu-latest
-#    timeout-minutes: 10
-#    steps:
-#      - uses: actions/checkout@v4
-#      - uses: actions/setup-node@v4
-#        with:
-#          node-version: ${{ inputs.node-version }}
-#          cache: npm
-#      - name: Install Dependencies
-#        run: npm ci
-#      - name: Run test
-#        run: npm run test
+  #  test:
+  #    runs-on: ubuntu-latest
+  #    timeout-minutes: 10
+  #    steps:
+  #      - uses: actions/checkout@v4
+  #      - uses: actions/setup-node@v4
+  #        with:
+  #          node-version: ${{ inputs.node-version }}
+  #          cache: npm
+  #      - name: Install Dependencies
+  #        run: npm ci
+  #      - name: Run test
+  #        run: npm run test
 
-#  build:
-#    needs: [check, test]
-#    timeout-minutes: 10
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#      - uses: actions/setup-node@v4
-#        with:
-#            node-version: ${{ inputs.node-version }}
-#            cache: npm
-#      - name: Install Dependencies
-#        run: npm ci
-#      - name: Build Project
-#        run: npm run build
+  build:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ inputs.bun-version }}
+      - name: Install Dependencies
+        run: bun install
+      - name: Build Project
+        run: bun build
