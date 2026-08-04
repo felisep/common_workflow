@@ -12,19 +12,24 @@ permissions:
   contents: read
 
 jobs:
-  check & lint:
+  check_lint:
+    name: Check and lint
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ inputs.bun-version }}
+          
       - name: Install Dependencies
         run: bun install
+        
       - name: Check Project
         run: bun run check
+        
       - name: Check lint
         run: bun run lint
 
@@ -43,14 +48,18 @@ jobs:
   #        run: npm run test
 
   build:
+    name: build
     timeout-minutes: 5
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ inputs.bun-version }}
+          
       - name: Install Dependencies
         run: bun install
+        
       - name: Build Project
         run: bun run build
